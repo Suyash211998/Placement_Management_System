@@ -1,12 +1,16 @@
 
 import './App.css';
-import Home from './pages/Home';
+import InstituteHome from './Institute/InstituteHome';
+import SideNavbar from './Institute/SideNavbar';
+
+import RoutePage from './routers/RoutePage';
 
 
 function App() {
   return (
     <div className="App">
-      <Home/>
+     <RoutePage/>
+     
     </div>
   );
 }
