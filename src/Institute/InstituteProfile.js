@@ -1,25 +1,26 @@
 import axios from "axios";
-import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "../Css/createstudent.css"
 import emailjs from '@emailjs/browser';
 import SideNavBar from "./SideNavbar";
 import { Button, Modal } from "react-bootstrap";
 
-export default function CreateStudent() {
+export default function InstituteProfile() {
   let navigate = useNavigate();
+//   const { id } = useParams();
+const id = 1;
+
   const form = useRef();
   const [user, setUser] = useState({
-   
-    name: "",
-    studentRollNo: "",
-    location: "",
+    clgName: "",
+    clgPan: "",
+    clgUid: "",
     email: "",
     phone: "",
-    birthDate:"",
     username: "",
-    instituteName:"",
-    password:""
+    placementOfficer:"",
+    regDate:""
   });
   const [isModalOpened, setIsModalOpened] = useState(false);
   
@@ -35,55 +36,32 @@ export default function CreateStudent() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
  
+  
+useEffect(() => {
+    loadProfile();
+  }, []);
+
   const onSubmit = async (e) => {
-    let usernameid =
-      "std" +
-      user.email.substring(0, 3) +
-      user.name.substring(0, 4) +
-      user.phone.substring(0, 3);
-    user.username = usernameid.split(" ").join("");
-    let passwordid = user.name.substring(0, 4)+Math.floor((Math.random() * 1000) + 1)+"@"+user.phone.substring(0, 3);
-    user.password = passwordid.split(" ").join("");
-    
     e.preventDefault();
-    const res = await axios.put("http://localhost:8080/student", user);
-    console.log(user);
-    
-    if (res.status === 200) {
-      console.log("success");
-      emailjs.send("service_bbfw5tz", "template_vxo34en", {
-        username:user.username,
-        password:user.password,
-        recruiterName:user.recruiterName,
-        email:user.email
-      }, "7x0P7whAnFJlF88Ts")
-      .then((result) => {
-          console.log(result.text);
-      }, (error) => {
-          console.log(error.text);
-      });
-    
-      openModal();
-      setUser({
-        name: "",
-        studentRollNo: "",
-        location: "",
-        email: "",
-        phone: "",
-        birthDate:"",
-        instituteName:"",
-        username: "",
-        password:""
-      });
-    }
+    await axios.put("http://localhost:8080/institute_user", user);
+    console.log("Success");
+    openModal();
   };
+
+  const loadProfile = async () => {
+    const result = await axios.get(`http://localhost:8080/institute_user/${id}`);
+    setUser(result.data);
+    
+  };
+ 
+
+  
   return (
     <div>
       <SideNavBar/>
       <div className="container rounded bg-white mt-5 mb-5">
-      <form onSubmit={(e) => onSubmit(e)}>
+        <form  onSubmit={(e) => onSubmit(e)}> 
         <div className="row">
-        
           <div className="col-md-3 border-right">
             <div className="d-flex flex-column align-items-center text-center p-3 py-5">
               <img
@@ -91,54 +69,39 @@ export default function CreateStudent() {
                 width="150px"
                 src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
               />
-              <span className="font-weight-bold">Create Student Profile</span>
+              <span className="font-weight-bold">Institute Profile</span>
               
               <span> </span>
             </div>
           </div>
-          
           <div className="col-md-5 border-right">
             <div className="p-3 py-5">
               <div className="d-flex justify-content-between align-items-center mb-3">
-                <h4 className="text-right">Student Profile</h4>
+                <h4 className="text-right">Institute Profile</h4>
               </div>
               <div className="row mt-3">
                 <div className="col-md-12">
-                  <label className="labels">Name</label>
+                  <label className="labels">College Name</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Name"
-                    name="name"
-                    value={user.name}
+                    placeholder="College Name"
+                    name="clgName"
+                    value={user.clgName}
                     onChange={(e) => onInputChange(e)}
                     required
                     
                   />
                 </div>
                 <div className="col-md-12">
-                  <label className="labels">Registration Number</label>
+                  <label className="labels">College PAN</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Registration Number"
-                    name="studentRollNo"
+                    placeholder="College PAN"
+                    name="clgPan"
                     onChange={(e) => onInputChange(e)}
-                    value={user.studentRollNo}
-                    required
-                    
-                  />
-                </div>
-
-                <div className="col-md-12">
-                  <label className="labels">Institute Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Institute Name"
-                    name="instituteName"
-                    onChange={(e) => onInputChange(e)}
-                    value={user.instituteName}
+                    value={user.clgPan}
                     required
                     
                   />
@@ -146,45 +109,19 @@ export default function CreateStudent() {
               </div>
               <div className="row mt-3">
                 <div className="col-md-12">
-                  <label className="labels">Mobile Number</label>
+                  <label className="labels">College UID</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Phone number"
-                    name="phone"
+                    placeholder="College UID"
+                    name="clgUid"
                     onChange={(e) => onInputChange(e)}
-                    value={user.phone}
+                    value={user.clgUid}
                     required
                    
                   />
                 </div>
-                <div className="col-md-12">
-                  <label className="labels">Location</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Location"
-                    name="location"
-                    onChange={(e) => onInputChange(e)}
-                    value={user.location}
-                    required
-                    
-                  />
-                </div>
-                <div className="col-md-12">
-                  <label className="labels">Birth Date</label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    placeholder="Birth Date"
-                    name="birthDate"
-                    onChange={(e) => onInputChange(e)}
-                    value={user.birthDate}
-                    required
-                    
-                  />
-                </div>
-                <div className="col-md-12">
+                   <div className="col-md-12">
                   <label className="labels">Email ID</label>
                   <input
                     type="email"
@@ -198,17 +135,71 @@ export default function CreateStudent() {
                   />
                 </div>
               </div>
+                <div className="col-md-12">
+                  <label className="labels">Phone</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Phone"
+                    name="phone"
+                    onChange={(e) => onInputChange(e)}
+                    value={user.phone}
+                    required
+                    
+                  />
+                </div>
+                <div className="col-md-12">
+                  <label className="labels">Placement Officer</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Placement Officer"
+                    name="placementOfficer"
+                    onChange={(e) => onInputChange(e)}
+                    value={user.placementOfficer}
+                    required
+                    
+                  />
+                </div>
+                <div className="col-md-12">
+                  <label className="labels">Placement Officer</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    placeholder="Placement Officer"
+                    name="regDate"
+                    onChange={(e) => onInputChange(e)}
+                    value={user.regDate}
+                    required
+                    
+                  />
+                </div>
+                 <div className="col-md-12">
+                  <label className="labels">User Name</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="enter user name"
+                    name="username"
+                    onChange={(e) => onInputChange(e)}
+                    value={user.username}
+                    required
+                   
+                  />
+                </div>
+              </div>
+                
               <div className="mt-5 text-center">
                 <button
                   className="btn btn-primary profile-button"
-                  type="submit"
+                  
                 >
                   Save Profile
                 </button>
               </div>
             </div>
           </div>
-        
+          </form>
           <Modal size="xxl" aria-labelledby="contained-modal-title-vcenter"
       centered show={isModalOpened} onHide={closeModal}>
           <Modal.Header closeButton>
@@ -223,8 +214,6 @@ export default function CreateStudent() {
         </Modal>
           
         </div>
-        </form>
       </div>
-    </div>
-  );
-}
+  )
+};

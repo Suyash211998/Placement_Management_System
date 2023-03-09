@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import "../Css/insitutehome.css"
 import SideNavbar from './SideNavbar'
 
-export default function InstituteHome() {
+export default function StudentHome() {
     const { clgName } = useParams();
   return (
     <div>
@@ -33,11 +33,11 @@ export default function InstituteHome() {
               <div className="btn-square bg-light rounded-circle mx-auto mb-4" style={{width: '64px', height: '64px'}}>
                 <img className="img-fluid" src="images/img/icon/icon-2.png" alt="Icon" />
               </div>
-              <h5 className="mb-3">Create Students Profile</h5>
-              <p className="mb-0">A format to create students profile for the placements</p>
+              <h5 className="mb-3">Create Resume </h5>
+              <p className="mb-0">A format to create students resume for the placements</p>
             </div>
             <div className="service-btn rounded-0 rounded-bottom">
-              <Link className="text-primary fw-medium" to={"/institutehome/createstudent"} >Click here<i className="bi bi-chevron-double-right ms-2" /></Link>
+              <Link className="text-primary fw-medium" to={"/createresume/Personaldetail"} >Click here<i className="bi bi-chevron-double-right ms-2" /></Link>
             </div>
           </div>
         </div>
@@ -61,8 +61,8 @@ export default function InstituteHome() {
               <div className="btn-square bg-light rounded-circle mx-auto mb-4" style={{width: '64px', height: '64px'}}>
                 <img className="img-fluid" src="images/office.png" alt="Icon" />
               </div>
-              <h5 className="mb-3">Interested Companies</h5>
-              <p className="mb-0">View all Interested Companies available for the upcoming campus placements</p>
+              <h5 className="mb-3">Applied Companies</h5>
+              <p className="mb-0">View all Applied Companies available for the upcoming campus placements</p>
             </div>
             <div className="service-btn rounded-0 rounded-bottom">
                 <Link className="text-primary fw-medium" to={"/institutehome/interestedcompanies"} >Click here<i className="bi bi-chevron-double-right ms-2" /></Link>
@@ -75,14 +75,15 @@ export default function InstituteHome() {
               <div className="btn-square bg-light rounded-circle mx-auto mb-4" style={{width: '64px', height: '64px'}}>
                 <img className="img-fluid" src="images/mortarboard.png" alt="Icon" />
               </div>
-              <h5 className="mb-3">View Students Profile</h5>
-              <p className="mb-0">View and Manage Students Profile Details and their campus placements status </p>
+              <h5 className="mb-3">View Student Profile</h5>
+              <p className="mb-0">View and Manage Student Profile Details and their campus placements status </p>
             </div>
             <div className="service-btn rounded-0 rounded-bottom">
             <Link className="text-primary fw-medium" to={"/"} >Click here<i className="bi bi-chevron-double-right ms-2" /></Link>
             </div>
           </div>
         </div>
+       
      
       </div>
     </div>

@@ -1,4 +1,4 @@
-/********** Template CSS **********/
+
 :root {
     --primary: #4761FF;
     --secondary: #555555;
@@ -596,3 +596,4 @@
 .copyright a:hover {
     color: var(--primary) !important;
 }
+

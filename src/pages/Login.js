@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import RecuiterReg from "./RecuiterReg";
 import Register from "./Register";
 
@@ -45,6 +45,15 @@ export class Login extends Component {
   render() {
     return (
       <div>
+         {/* <header id="intro" >
+            <div className="container align-items-center "  >
+                  <div className="col m-3">
+                    <h1 className="mt-2 align-content-center">
+                      Welcome To Recruit
+                    </h1>
+                  </div>
+            </div>
+          </header> */}
         <section className="vh-100" style={{ backgroundColor: "#9A616D" }}>
           <div className="container py-5 h-100">
             <div className="row d-flex justify-content-center align-items-center h-100">
@@ -52,9 +61,9 @@ export class Login extends Component {
                 <div className="card" style={{ borderRadius: "1rem" }}>
                   <div className="row g-0">
                     <div className="col-md-6 col-lg-5 d-none d-md-block">
-                      <h1>CMPS</h1>
+                      <h1>Recruit</h1>
                       <img
-                        src="images/Graduation_1.jpg"
+                        src="images/grad.png"
                         alt="login form"
                         className="img-fluid mt-2"
                         style={{ borderRadius: "1rem 0 0 1rem" }}
@@ -107,9 +116,11 @@ export class Login extends Component {
                             </label>
                           </div>
                           <div className="pt-1 mb-4">
+                            
                             <button
                               className="btn btn-dark btn-lg btn-block"
                               type="submit"
+            
                             >
                               Login
                             </button>
@@ -126,7 +137,7 @@ export class Login extends Component {
                               className="btn btn-primary"
                               data-bs-toggle="modal"
                               href="#exampleModalToggle"
-                              role="button"
+                              
                             >
                               Register
                             </button>
