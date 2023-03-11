@@ -26,12 +26,6 @@ function HomeResume() {
                             </span>
                             <span className="align-top">Project Details</span>
                         </Link>
-                        <Link className="nav-link sidebar-menu" to="/createresume/WorkExperience">
-                            <span class="material-symbols-outlined me-3">
-                                work
-                            </span>
-                            <span className="align-top">Work Experience</span>
-                        </Link>
 
                         <Link className="nav-link sidebar-menu" to="/createresume/Skills">
                             <span class="material-symbols-outlined me-3">

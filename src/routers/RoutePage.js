@@ -18,7 +18,7 @@ import HomeResume from '../StudentLog/Home'
 import Personainfo from '../StudentLog/Personainfo'
 import ProjDetails from '../StudentLog/ProjDetails'
 import Skills from '../StudentLog/Skills'
-import WorkExp from '../StudentLog/WorkExp'
+
 
 export default function RoutePage() {
   return (
@@ -41,7 +41,6 @@ export default function RoutePage() {
         <Route path='/createresume/Personaldetail' element={<Personainfo/>} />
         <Route path='/createresume/Academicdetails' element={<Academicinfo/>} />
         <Route path='/createresume/ProjectDetails' element={<ProjDetails/>} />
-        <Route path='/createresume/WorkExperience' element={<WorkExp/>} />
         <Route path='/createresume/Skills' element={<Skills/>}  />
         <Route path='/createresume/ExtraActivities' element={<ExtraActivities/>} />
         </Route>
