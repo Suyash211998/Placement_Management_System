@@ -1,38 +1,50 @@
+import axios from "axios"
 import { useState } from "react"
+import { Button, Modal } from "react-bootstrap"
+import { useParams } from "react-router-dom"
 import "../Css/studentresume.css"
 
 function Personainfo() {
     const [Fname, seatFname] = useState("")
-    const [Mname, setMname] = useState("")
-    const [Lname, setLname] = useState("")
-    const [mail, setmail] = useState("")
+   const [mail, setmail] = useState("")
     const [phone, setphone] = useState("")
-    const [state, setstate] = useState("")
     const [city, setcity] = useState("")
     const [date, setdate] = useState("")
-    const [Address, setAddress] = useState("")
+    const id = useParams();
 
-    const [drlist, setdrlist] = useState([
-        { id: 1, name: "Rohan" },
-        { id: 2, name: "Raj" },
-        { id: 2, name: "Ram" }
-    ])
-    const save = function () {
-        var data =
+    const [isModalOpened, setIsModalOpened] = useState(false);
+  
+    const openModal = () => {
+      setIsModalOpened(true);
+    };
+    const closeModal = () => {
+      setIsModalOpened(false);
+    };
+
+
+    const save = async function (e) {
+        e.preventDefault();
+        if(validate()){
+            var data =
         {
-            Fname: Fname,
-            Mname: Mname,
-            Lname: Lname,
-            mail: mail,
+            studentId:1,
+            name:Fname,
+            email: mail,
             phone: phone,
-            state: state,
-            city: city,
-            date: date,
-            Address: Address
+            location: city,
+            birthDate: date,
 
         }
-        console.log(data)
+        const res = await axios.put("http://localhost:8080/student", data);
+        if(res.status===200) {
+            openModal();
+            console.log("success");
+        }
+      
+        }
+        
     }
+    
 
 
 
@@ -46,109 +58,148 @@ function Personainfo() {
                 <table>
                     <tr>
                         <td>
-                            <h5 >First Name<span className="text-danger"> *</span></h5>
+                            <h5 >Name<span className="text-danger"> </span></h5>
                             <input type="text"
+                                id="vname"
                                 value={Fname}
-                                placeholder="Enter First Name"
+                                placeholder="Enter Full Name"
                                 className="form-control form-control-sm mb-3 inputform "
                                 required=""
                                 onChange={(event) => seatFname(event.target.value)}>
                             </input>
+                            <label className="form-label" htmlFor="form3Example1cg" id="name" style={{ color: 'red' }} ></label>
                         </td>
                         <td>
-                            <h5>Middle Name<span className="text-danger"> *</span></h5>
-                            <input type="text"
-                                value={Mname}
-                                placeholder="Enter First Name"
-                                className="form-control form-control-sm mb-3 inputform "
-                                required=""
-                                onChange={(event) => setMname(event.target.value)}>
-                            </input>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <h5>Last Name<span className="text-danger"> *</span></h5>
-                            <input type="text"
-                                value={Lname}
-                                placeholder="Enter Middle Name "
-                                className="form-control form-control-sm mb-3 inputform "
-                                required=""
-                                onChange={(event) => setLname(event.target.value)}>
-                            </input>
-                        </td>
-                        <td>
-                            <h5>Email<span className="text-danger"> *</span></h5>
+                            <h5>Email<span className="text-danger"> </span></h5>
                             <input type="email"
+                                id="vemail"
                                 value={mail}
                                 className="form-control form-control-sm mb-3 inputform"
-                                placeholder="Enter Model"
+                                placeholder="Enter Email"
                                 required=""
                                 onChange={(event) => setmail(event.target.value)}>
                             </input>
+                            <label className="form-label" htmlFor="form3Example1cg" id="email" style={{ color: 'red' }} ></label>
                         </td>
                     </tr>
+
                     <tr>
                         <td>
-                            <h5>Contact<span className="text-danger"> *</span></h5>
+                            <h5>Contact<span className="text-danger"> </span></h5>
                             <input type="number"
+                                id="vphone"
                                 value={phone}
                                 className="form-control form-control-sm mb-3 inputform"
-                                placeholder="Enter price"
+                                placeholder="Enter phone"
                                 required=""
                                 onChange={(event) => setphone(event.target.value)}>
                             </input>
+                            <label className="form-label" htmlFor="form3Example1cg" id="phone" style={{ color: 'red' }} ></label>
                         </td>
                         <td>
-                            <h5>Birth Date<span className="text-danger"> *</span></h5>
+                            <h5>Birth Date<span className="text-danger"> </span></h5>
                             <input type="date"
+                                id="vbirthdate"
                                 value={date}
                                 className="form-control form-control-sm mb-3 inputform"
-                                placeholder="Enter price"
+                                placeholder="Enter The BirthDate"
                                 required=""
                                 onChange={(event) => setdate(event.target.value)}>
                             </input>
+                            <label className="form-label" htmlFor="form3Example1cg" id="birthdate" style={{ color: 'red' }} ></label>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <h5>State<span className="text-danger"> *</span> </h5>
-                            <input type="text"
-                                value={state}
-                                placeholder="Enter Middle Name "
-                                className="form-control form-control-sm mb-3 inputform "
-                                required="value"
-                                onChange={(event) => setstate(event.target.value)}>
-                            </input>
-                        </td>
-                        <td>
-                            <h5>City<span className="text-danger"> *</span></h5>
+                            <h5>City<span className="text-danger"> </span></h5>
                             <input type="text"
                                 value={city}
+                                id="city"
                                 className="form-control form-control-sm mb-3 inputform"
-                                placeholder="Enter Model"
+                                placeholder="Enter Location Name"
                                 required=""
                                 onChange={(event) => setcity(event.target.value)}>
                             </input>
+                            <label className="form-label" htmlFor="form3Example1cg" id="location" style={{ color: 'red' }} ></label>
                         </td>
                     </tr>
                 </table>
-                <div className="textar form-floating">
-                    <h5>Address<span className="text-danger" > *</span></h5>
-                    <textarea className="inputform form-control" id="floatingTextarea" style={{ width: "500px",height:"100px" }} onChange={(event) => setAddress(event.target.value)}></textarea>
-                </div>
 
                 <div className="text-center">
-                    <button onClick={save} className="btn btn-primary mt-3">Save</button>
+                    <button onClick={(e) => save(e)} className="btn btn-primary mt-3">Save</button>
                 </div>
 
             </div>
+            <Modal size="xxl" aria-labelledby="contained-modal-title-vcenter"
+      centered show={isModalOpened} onHide={closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">Application form Sumbitted!!!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Done</Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={closeModal}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+          
 
         </div>
 
 
 
     )
+}
+
+function validate() {
+
+    var name =
+        document.getElementById("vname").value;
+
+    var email =
+        document.getElementById("vemail").value;
+
+    var contact =
+        document.getElementById("vphone").value;
+
+    var city =
+        document.getElementById("city").value;
+
+
+    var regName = /^[a-zA-z]+([\s][a-zA-Z]+)*$/;
+    var regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
+    var regContact = /^[789][0-9]{9}$/;
+
+
+    var msg = document.getElementById("name");
+    if (name === "" || !regName.test(name)) {
+        msg.innerHTML = " *Please enter a valid name";
+        return false;
+    }
+    msg.innerHTML = "";
+
+    msg = document.getElementById("phone");
+    if (contact === "" || !regContact.test(contact)) {
+        msg.innerHTML = " *Please enter a valid phone number";
+        return false;
+    }
+    msg.innerHTML = "";
+
+    msg = document.getElementById("location");
+    if (city === "" || !regName.test(city)) {
+        msg.innerHTML = " *Please enter a valid name";
+        return false;
+    }
+    msg.innerHTML = "";
+
+    msg = document.getElementById("email");
+    if (email === "" || !regEmail.test(email)) {
+        msg.innerHTML = " *Please enter a valid email";
+        return false;
+    }
+
+   
+
+    return true;
 }
 export default Personainfo

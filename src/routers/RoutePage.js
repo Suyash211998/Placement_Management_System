@@ -5,7 +5,7 @@ import InstituteHome from '../Institute/InstituteHome'
 import InstituteProfile from '../Institute/InstituteProfile'
 import InterestedCompnies from '../Institute/InterestedCompnies'
 import JobDisplay from '../Institute/JobDisplay'
-import Blog from '../pages/Blog'
+
 import Career from '../pages/Career'
 import Contact from '../pages/Contact'
 import Home from "../pages/Home"
@@ -32,7 +32,7 @@ export default function RoutePage() {
         <Route path='/institutehome/interestedcompanies' element={<InterestedCompnies/>} />
         <Route path='/recruiterhome' element={<RecruiterHome/>} />
         <Route path='/contact' element={<Contact/>} />
-        <Route path='/blog' element={<Blog/>} />
+        
         <Route path='/career' element={<Career/>} />
         <Route path='/instituteprofile' element={<InstituteProfile/>} />
         <Route path='/studenthome' element={<StudentHome/>} />
