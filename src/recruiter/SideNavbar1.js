@@ -9,6 +9,7 @@ import SideNav, {
   NavText
 } from "@trendmicro/react-sidenav";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 class SideNavBar1 extends React.Component {
   constructor(props) {
@@ -17,6 +18,12 @@ class SideNavBar1 extends React.Component {
       isVisible: false
     };
   }
+
+  handleLogout = () => {
+    if (localStorage.getItem("recruiter") != null) {
+        localStorage.removeItem("recruiter");
+    }}
+
 
   render() {
     return (
@@ -32,27 +39,14 @@ class SideNavBar1 extends React.Component {
               <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
             </NavIcon>
             <NavText>
-              <Link to={"/institutehome"}>
+              <Link to={"/recruiterhome"}>
               Home
               </Link>
               
              </NavText>
           </NavItem>
-          <NavItem eventKey="profile">
-            <NavIcon>
-              <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
-            </NavIcon>
-            <NavText>Company Profile</NavText>
-          </NavItem>
-          <NavItem eventKey="password">
-            <NavIcon>
-              <i
-                className="fa fa-fw fa-line-chart"
-                style={{ fontSize: "1.75em" }}
-              />
-            </NavIcon>
-            <NavText>Change Password </NavText>
-          </NavItem>
+         
+          
           <NavItem eventKey="logout">
             <NavIcon>
               <i
@@ -60,7 +54,11 @@ class SideNavBar1 extends React.Component {
                 style={{ fontSize: "1.75em" }}
               />
             </NavIcon>
-            <NavText>LogOut</NavText>
+            <NavText>
+            <Link to={"/"}>
+            <Button onClick={this.handleLogout}>LogOut</Button>
+              </Link>
+              </NavText>
           </NavItem>
         </SideNav.Nav>
       </SideNav>

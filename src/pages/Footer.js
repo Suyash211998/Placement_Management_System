@@ -12,12 +12,7 @@ export default function Footer() {
         <p className="mb-2"><i className="fa fa-map-marker-alt me-3" />SANTCRUZ, MUMBAI 400010, MH</p>
         <p className="mb-2"><i className="fa fa-phone-alt me-3" />+012 345 67890</p>
         <p className="mb-2"><i className="fa fa-envelope me-3" />info123@recruit.com</p>
-        <div className="d-flex pt-3">
-          <a className="btn btn-square btn-light rounded-circle me-2" href><i className="fab fa-twitter" /></a>
-          <a className="btn btn-square btn-light rounded-circle me-2" href><i className="fab fa-facebook-f" /></a>
-          <a className="btn btn-square btn-light rounded-circle me-2" href><i className="fab fa-youtube" /></a>
-          <a className="btn btn-square btn-light rounded-circle me-2" href><i className="fab fa-linkedin-in" /></a>
-        </div>
+        
       </div>
       <div className="col-lg-3 col-md-6">
         <h4 className="text-white mb-4">Quick Links</h4>

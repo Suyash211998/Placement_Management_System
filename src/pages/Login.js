@@ -1,48 +1,136 @@
-import React, { Component } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import React, { Component, useState } from "react";
+import { Modal, Button} from "react-bootstrap";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import RecuiterReg from "./RecuiterReg";
 import Register from "./Register";
 
-export class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      formData: {},
-      modalOpeningStatus: false,
-      modalOpeningStatus1: false,
-    };
+
+
+export default function Login() {
+  
+  const navigate = useNavigate();
+
+  const [teamLogin, setTeamLogin] = useState({
+      username: "",
+      password: ""
+  });
+  const [modalOpeningStatus, setModalOpeningStatus] = useState(false);
+  const [modalOpeningStatus1, setModalOpeningStatus1] = useState(false);
+
+  const openDialog = () => {
+      setModalOpeningStatus(true);
+  };
+
+  const closeDialog = () => {
+      setModalOpeningStatus(false);
+  };
+
+  const openDialog1 = () => {
+      setModalOpeningStatus1(true);
+  };
+
+  const closeDialog1 = () => {
+      setModalOpeningStatus1(false);
+  };
+
+  const handleChange = (e) => {
+      setTeamLogin({ ...teamLogin, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (event) => {
+    
+    event.preventDefault();
+    const user = teamLogin.username.substring(0, 4);
+    const user1 = teamLogin.username.substring(0, 3);
+    console.log(user);
+    console.log(teamLogin);
+    if(user == "inst"){
+      const response = await axios.post("http://localhost:8080/institutelogin", teamLogin);
+      console.log(response.data);
+      //const user = response.data;
+      if (response.status === 200) {
+          if (response.data != "") {
+              if (response.data.username) {
+                  localStorage.setItem("institute", JSON.stringify(response.data));
+                  console.log(JSON.parse(localStorage.getItem("institute")));
+                  
+                  return handlePath(user);
+              } else {
+                  openDialog();
+                  return;
+              }
+          } else {
+              openDialog();
+              return;
+          }
+        }
+      
+    }
+    else if(user == "recr"){
+      const response = await axios.post("http://localhost:8080/recruiterlogin", teamLogin);
+      console.log(response.data);
+      //const user = response.data;
+      if (response.status === 200) {
+          if (response.data != "") {
+              if (response.data.username) {
+                  localStorage.setItem("recruiter", JSON.stringify(response.data));
+                  console.log(JSON.parse(localStorage.getItem("recruiter")));
+                  
+                  return handlePath(user);
+              } else {
+                  openDialog();
+                  return;
+              }
+          } else {
+              openDialog();
+              return;
+          }
+        }
+      
+    }
+    
+    else if(user1 == "std"){
+      const response = await axios.post("http://localhost:8080/studentlogin", teamLogin);
+      console.log(response.data);
+      //const user = response.data;
+      if (response.status === 200) {
+          if (response.data != "") {
+              if (response.data.username) {
+                  localStorage.setItem("student", JSON.stringify(response.data));
+                  console.log(JSON.parse(localStorage.getItem("student")));
+                  
+                  return handlePath(user1);
+              } else {
+                  openDialog();
+                  return;
+              }
+          } else {
+              openDialog();
+              return;
+          }
+        }
+      
+    }
+    openDialog();
+    
+   
+    
+  };
+
+  const handlePath = (props) => {
+    if (props == "inst") {
+        return navigate('/institutehome');
+    }else if (props == "recr"){
+      return navigate('/recruiterhome');
+    }
+    else if (props == "std"){
+      console.log("sstc");
+      return navigate('/studenthome');
+    }
+    
   }
 
-  openDialog = () => {
-    this.setState({ modalOpeningStatus: true });
-  };
-
-  closeDialog = () => {
-    this.setState({ modalOpeningStatus: false });
-  };
-
-  openDialog1 = () => {
-    this.setState({ modalOpeningStatus1: true });
-  };
-
-  closeDialog1 = () => {
-    this.setState({ modalOpeningStatus1: false });
-  };
-
-  handleChange = (event) => {
-    this.setState({
-      formData: {
-        ...this.state.formData,
-        [event.target.name]: event.target.value,
-      },
-    });
-  };
-
-  handleSubmit = async (event) => {
-    event.preventDefault();
-  };
-
-  render() {
     return (
       <div>
          {/* <header id="intro" >
@@ -71,7 +159,7 @@ export class Login extends Component {
                     </div>
                     <div className="col-md-6 col-lg-7 d-flex align-items-center">
                       <div className="card-body p-4 p-lg-5 text-black">
-                        <form onSubmit={this.handleSubmit}>
+                        <form onSubmit={handleSubmit}>
                           <div className="d-flex align-items-center mb-3 pb-1">
                             <i
                               className="fas fa-cubes fa-2x me-3"
@@ -90,8 +178,9 @@ export class Login extends Component {
                               type="text"
                               id="form2Example17"
                               name="username"
-                              onChange={this.handleChange}
+                              onChange={handleChange}
                               className="form-control form-control-lg"
+                              required
                             />
                             <label
                               className="form-label"
@@ -105,8 +194,9 @@ export class Login extends Component {
                               type="password"
                               id="form2Example27"
                               name="password"
-                              onChange={this.handleChange}
+                              onChange={handleChange}
                               className="form-control form-control-lg"
+                              required
                             />
                             <label
                               className="form-label"
@@ -125,9 +215,7 @@ export class Login extends Component {
                               Login
                             </button>
                           </div>
-                          <a className="small text-muted" href="#!">
-                            Forgot password?
-                          </a>
+                         
                           <p
                             className="mb-5 pb-lg-2"
                             style={{ color: "#393f81" }}
@@ -135,19 +223,16 @@ export class Login extends Component {
                             Don't have an account?{" "}
                             <button
                               className="btn btn-primary"
+                              type="reset"
                               data-bs-toggle="modal"
                               href="#exampleModalToggle"
+                              onClick={closeDialog}
                               
                             >
                               Register
                             </button>
                           </p>
-                          <a href="#!" className="small text-muted">
-                            Terms of use.
-                          </a>
-                          <a href="#!" className="small text-muted">
-                            Privacy policy
-                          </a>
+                          
                         </form>
                       </div>
                     </div>
@@ -192,14 +277,14 @@ export class Login extends Component {
                     <Register />
                   </div>
                   <div className="modal-footer">
-                  <button
+                  {/* <button
                       type="button"
                       className="btn btn-secondary"
                       data-bs-dismiss="modal"
-                      onClick={this.closeDialog}
+                      onClick={closeDialog}
                     >
                       Close
-                    </button>
+                    </button> */}
                     </div>
                 </div>
               </div>
@@ -238,26 +323,58 @@ export class Login extends Component {
                     <RecuiterReg/>
                   </div>
                   <div className="modal-footer">
-                    <button
+                    {/* <button
                       type="button"
                       className="btn btn-secondary"
                       data-bs-dismiss="modal"
-                      onClick={this.closeDialog}
+                      onClick={closeDialog}
                     >
                       Close
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <Modal show={modalOpeningStatus} onHide={closeDialog}>
+            <Modal.Header closeButton>
+              <Modal.Title>Invalid Credentials</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Check Your Email And Password</Modal.Body>
+            <Modal.Footer>
+              <Button variant="primary" onClick={closeDialog}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
+          <Modal
+            show={modalOpeningStatus1}
+            onHide={closeDialog1}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Login Successfully</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h3>Done</h3>
+              <br />
+              <Link to={"/institutehome"}>
+                <Button className="btn btn-primary">
+                  Go to Home
+                </Button>
+              </Link>
+                
+              
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="primary" onClick={closeDialog1}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </section>
       </div>
     );
   }
-}
 
-export function LoginUrl(props) {
-  const navigate = useNavigate();
-  return <home navigate={navigate}></home>;
-}
+

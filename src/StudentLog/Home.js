@@ -1,8 +1,18 @@
 import "../Css/studentresume.css"
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 function HomeResume() {
+
+    const navigate = useNavigate();
+  const student = JSON.parse(localStorage.getItem("student"));
+  useEffect(() => {
+    if (student == null) {
+        navigate("/");
+    }
+}, []);
+
     return (
-        <div className="Wrapper">
+        <div className="Wrapper " >
             <div className="row">
                 <div className="col-3 sidebar" >
                     <nav className="nav flex-column mt-5 ms-3">
@@ -10,35 +20,9 @@ function HomeResume() {
                             <span class="material-symbols-rounded me-3">
                                 edit_note
                             </span>
-                            <span className="align-top">Personal Details</span>
+                            <span className="align-top">Create Resume</span>
                         </Link>
 
-                        <Link className="nav-link sidebar-menu" to="/createresume/Academicdetails">
-                            <span class="material-symbols-outlined me-3">
-                                account_balance
-                            </span>
-                            <span className="align-top">Academic Details</span>
-                        </Link>
-
-                        <Link className="nav-link sidebar-menu" to="/createresume/ProjectDetails">
-                            <span className="material-icons-outlined me-3">
-                                list_alt
-                            </span>
-                            <span className="align-top">Project Details</span>
-                        </Link>
-
-                        <Link className="nav-link sidebar-menu" to="/createresume/Skills">
-                            <span class="material-symbols-outlined me-3">
-                                edit_square
-                            </span>
-                            <span className="align-top">Skills</span>
-                        </Link>
-                        <Link className="nav-link sidebar-menu" to="/createresume/ExtraActivities">
-                            <span class="material-symbols-outlined me-3">
-                                bookmark_manager
-                            </span>
-                            <span className="align-top">Extra Curricular Activities</span>
-                        </Link>
                         <div style={{ height: "30vh" }}></div>
                         <Link className="nav-link sidebar-menu" to="/studenthome">
                             <span class="material-symbols-outlined me-3">

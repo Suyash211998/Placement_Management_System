@@ -9,6 +9,7 @@ import SideNav, {
   NavText
 } from "@trendmicro/react-sidenav";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 class SideNavBar extends React.Component {
   constructor(props) {
@@ -17,6 +18,12 @@ class SideNavBar extends React.Component {
       isVisible: false
     };
   }
+
+  handleLogout = () => {
+    if (localStorage.getItem("institute") != null) {
+        localStorage.removeItem("institute");
+    }}
+
 
   render() {
     return (
@@ -42,17 +49,12 @@ class SideNavBar extends React.Component {
             <NavIcon>
               <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
             </NavIcon>
-            <NavText>Institute Profile</NavText>
+            <NavText>
+            <Link to={"/instituteprofile"}>
+            Institute Profile
+              </Link></NavText>
           </NavItem>
-          <NavItem eventKey="password">
-            <NavIcon>
-              <i
-                className="fa fa-fw fa-line-chart"
-                style={{ fontSize: "1.75em" }}
-              />
-            </NavIcon>
-            <NavText>Change Password </NavText>
-          </NavItem>
+          
           <NavItem eventKey="logout">
             <NavIcon>
               <i
@@ -60,7 +62,11 @@ class SideNavBar extends React.Component {
                 style={{ fontSize: "1.75em" }}
               />
             </NavIcon>
-            <NavText>LogOut</NavText>
+            <NavText >
+            <Link to={"/"}>
+            <Button onClick={this.handleLogout}>LogOut</Button>
+              </Link>
+              </NavText>
           </NavItem>
         </SideNav.Nav>
       </SideNav>

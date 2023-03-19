@@ -7,9 +7,19 @@ import SideNavBar from "./SideNavbar";
 import { Button, Modal } from "react-bootstrap";
 
 export default function InstituteProfile() {
+
+  
+
   let navigate = useNavigate();
+
+  useEffect(() => {
+    if (institute == null) {
+        navigate("/");
+    }
+}, []);
 //   const { id } = useParams();
-const id = 1;
+const institute = JSON.parse(localStorage.getItem("institute"));
+const id = institute.instituteId;
 
   const form = useRef();
   const [user, setUser] = useState({
@@ -20,7 +30,9 @@ const id = 1;
     phone: "",
     username: "",
     placementOfficer:"",
-    regDate:""
+    regDate:"",
+    username:institute.username,
+    password:institute.password
   });
   const [isModalOpened, setIsModalOpened] = useState(false);
   
@@ -43,10 +55,47 @@ useEffect(() => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put("http://localhost:8080/institute_user", user);
-    console.log("Success");
-    openModal();
+
+    if (
+      !user.clgName ||
+      !user.clgPan ||
+      !user.clgUid ||
+      !user.email ||
+      !user.phone ||
+      !user.username ||
+      !user.placementOfficer ||
+      !user.regDate
+    ) {
+      alert("Please fill all the required fields");
+      return;
+    }
+  
+    // Check if all required fields are filled
+    if (!user.clgName || !user.clgPan || !user.clgUid || !user.email || !user.phone || !user.username || !user.placementOfficer || !user.regDate) {
+      alert("Please fill all the required fields");
+      return;
+    }
+  
+    // Check if the email is in a valid format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(user.email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
+
+    
+  
+    // Send the form data to the server
+    try {
+      await axios.put("http://localhost:8080/institute_user", user);
+      console.log("Success");
+      openModal();
+    } catch (error) {
+      console.error(error);
+      alert("Error submitting the form");
+    }
   };
+  
 
   const loadProfile = async () => {
     const result = await axios.get(`http://localhost:8080/institute_user/${id}`);
@@ -187,6 +236,7 @@ useEffect(() => {
                    
                   />
                 </div>
+                
               </div>
                 
               <div className="mt-5 text-center">
@@ -203,9 +253,9 @@ useEffect(() => {
           <Modal size="xxl" aria-labelledby="contained-modal-title-vcenter"
       centered show={isModalOpened} onHide={closeModal}>
           <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">Application form Sumbitted!!!</Modal.Title>
+            <Modal.Title id="contained-modal-title-vcenter">Profile Upadted!!!</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Now Go For The Email and Check Your Login Credentials</Modal.Body>
+          <Modal.Body>Successfully Done</Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={closeModal}>
               Close

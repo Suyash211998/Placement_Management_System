@@ -1,8 +1,18 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import SideNavBar1 from './SideNavbar1'
 
 export default function RecruiterHome() {
+
+  const navigate = useNavigate();
+
+    const recruiter = JSON.parse(localStorage.getItem("recruiter"));
+    useEffect(() => {
+      if (recruiter == null) {
+          navigate("/");
+      }
+  }, []);
+
   return (
     <div>
       <div>
@@ -22,7 +32,7 @@ export default function RecruiterHome() {
     <div className="container">
       <div className="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style={{maxWidth: '500px'}}>
         <p className="fs-5 fw-medium text-primary">Welcome To Our Recruit</p>
-        <h1 className="display-5 mb-5">Services that We Offer</h1>
+        <h1 className="display-5 mb-5">Recruiter Home </h1>
       </div>
       <div className="row g-4">
         <div className="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -35,7 +45,7 @@ export default function RecruiterHome() {
               <p className="mb-0">A format to create Job profile for Hiring The Students</p>
             </div>
             <div className="service-btn rounded-0 rounded-bottom">
-              <Link className="text-primary fw-medium" to={"/institutehome/createstudent"} >Click here<i className="bi bi-chevron-double-right ms-2" /></Link>
+              <Link className="text-primary fw-medium" to={"/recruiterhome/postjob"} >Click here<i className="bi bi-chevron-double-right ms-2" /></Link>
             </div>
           </div>
         </div>
@@ -49,7 +59,7 @@ export default function RecruiterHome() {
               <p className="mb-0">You will see applicable jobs and their detailed information</p>
             </div>
             <div className="service-btn rounded-0 rounded-bottom">
-            <Link className="text-primary fw-medium" to={"/institutehome/jobdisplay"} >Click here<i className="bi bi-chevron-double-right ms-2" /></Link>
+            <Link className="text-primary fw-medium" to={"/recruiterhome/viewjob"} >Click here<i className="bi bi-chevron-double-right ms-2" /></Link>
             </div>
           </div>
         </div>
@@ -63,11 +73,11 @@ export default function RecruiterHome() {
               <p className="mb-0">View all Interested Colleges available for the upcoming campus placements</p>
             </div>
             <div className="service-btn rounded-0 rounded-bottom">
-                <Link className="text-primary fw-medium" to={"/institutehome/interestedcompanies"} >Click here<i className="bi bi-chevron-double-right ms-2" /></Link>
+                <Link className="text-primary fw-medium" to={"/recruiterhome/interestedClgs"} >Click here<i className="bi bi-chevron-double-right ms-2" /></Link>
             </div>
           </div>
         </div>
-        <div className="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+        {/* <div className="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
           <div className="service-item position-relative h-100">
             <div className="service-text rounded p-5">
               <div className="btn-square bg-light rounded-circle mx-auto mb-4" style={{width: '64px', height: '64px'}}>
@@ -80,7 +90,7 @@ export default function RecruiterHome() {
             <Link className="text-primary fw-medium" to={"/"} >Click here<i className="bi bi-chevron-double-right ms-2" /></Link>
             </div>
           </div>
-        </div>
+        </div> */}
        
      
       </div>

@@ -1,20 +1,24 @@
 import React from 'react'
+import Footer from './Footer'
+import Navbar from './Navbar'
 
 export default function Career() {
   return (
+
     <div>
+      <Navbar/>
 
 <div>
   <div id="carouselExampleFade" className="carousel slide carousel-fade">
     <div className="carousel-inner">
       <div className="carousel-item active">
-        <img src="bulletin-board-3127287_1920.jpg" height="500px" width="100%" alt="..." />
+        <img src="images/bulletin-board-3127287_1920.jpg" height="500px" width="100%" alt="..." />
       </div>
       <div className="carousel-item">
-        <img src="business-idea-1240825_1920.jpg" height="500px" width="100%" alt="..." />
+        <img src="images/business-idea-1240825_1920.jpg" height="500px" width="100%" alt="..." />
       </div>
       <div className="carousel-item">
-        <img src="career-111932_1920.jpg" height="500px" width="100%" alt="..." />
+        <img src="images/career-111932_1920.jpg" height="500px" width="100%" alt="..." />
       </div>
     </div>
     <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -28,7 +32,7 @@ export default function Career() {
     <div className="conatiner"><div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3 m-lg-auto">
         <div className="col">
           <div className="card shadow-sm">
-            <img src="board-3683740_1920.jpg" height="300px" width="100%" alt="" />
+            <img src="images/board-3683740_1920.jpg" height="300px" width="100%" alt="" />
             <div className="card-body">
               <p className="card-text">  As a career guidance option after engineering in India for the coming future,
                 Data Analytics presents a broad scope and a lot of possibilities.They act as
@@ -39,7 +43,7 @@ export default function Career() {
         </div>
         <div className="col">
           <div className="card shadow-sm">
-            <img src="career-479578_1920.jpg" height="300px" width="100%" alt="" />
+            <img src="images/career-479578_1920.jpg" height="300px" width="100%" alt="" />
             <div className="card-body">
               <p className="card-text">  As a career guidance option after engineering in India for the coming future,
                 Data Analytics presents a broad scope and a lot of possibilities.They act as
@@ -50,7 +54,7 @@ export default function Career() {
         </div>
         <div className="col">
           <div className="card shadow-sm">
-            <img src="success-4168389_1920.jpg" height="300px" width="100%" alt="" />
+            <img src="images/career-111932_1920.jpg" height="300px" width="100%" alt="" />
             <div className="card-body">
               <p className="card-text">For people who find it difficult to realize the right career meant for them; a career guide helps them sort this confusion. There are infinite career options available to choose from, and without an expert’s proper guidance, one might stick to a few that his/her friends or relatives ask him to pursue. </p>
             </div>
@@ -85,6 +89,7 @@ export default function Career() {
     </div>
   </div>
 </div>
+<Footer/>
 
     </div>
   )

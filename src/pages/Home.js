@@ -1,7 +1,7 @@
 import React from 'react'
 import Footer from './Footer'
 import HomeBody from './HomeBody'
-import { Login } from './Login'
+import Login  from './Login'
 
 import Navbar from './Navbar'
 

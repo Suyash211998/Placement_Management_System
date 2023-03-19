@@ -1,10 +1,22 @@
-import React from 'react'
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import "../Css/insitutehome.css"
 import SideNavbar from './SideNavbar'
 
-export default function InstituteHome() {
+export default function InstituteHome() 
+{
     const { clgName } = useParams();
+    const navigate = useNavigate();
+
+    const institute = JSON.parse(localStorage.getItem("institute"));
+    useEffect(() => {
+      if (institute == null) {
+          navigate("/");
+      }
+  }, []);
+
+    
+    
   return (
     <div>
       <div>
@@ -24,7 +36,7 @@ export default function InstituteHome() {
     <div className="container">
       <div className="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style={{maxWidth: '500px'}}>
         <p className="fs-5 fw-medium text-primary">Welcome To Our Recruit</p>
-        <h1 className="display-5 mb-5">Services that We Offer</h1>
+        <h1 className="display-5 mb-5">Institute Home</h1>
       </div>
       <div className="row g-4">
         <div className="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -55,20 +67,7 @@ export default function InstituteHome() {
             </div>
           </div>
         </div>
-        <div className="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-          <div className="service-item position-relative h-100">
-            <div className="service-text rounded p-5">
-              <div className="btn-square bg-light rounded-circle mx-auto mb-4" style={{width: '64px', height: '64px'}}>
-                <img className="img-fluid" src="images/office.png" alt="Icon" />
-              </div>
-              <h5 className="mb-3">Interested Companies</h5>
-              <p className="mb-0">View all Interested Companies available for the upcoming campus placements</p>
-            </div>
-            <div className="service-btn rounded-0 rounded-bottom">
-                <Link className="text-primary fw-medium" to={"/institutehome/interestedcompanies"} >Click here<i className="bi bi-chevron-double-right ms-2" /></Link>
-            </div>
-          </div>
-        </div>
+       
         <div className="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
           <div className="service-item position-relative h-100">
             <div className="service-text rounded p-5">
@@ -79,7 +78,7 @@ export default function InstituteHome() {
               <p className="mb-0">View and Manage Students Profile Details and their campus placements status </p>
             </div>
             <div className="service-btn rounded-0 rounded-bottom">
-            <Link className="text-primary fw-medium" to={"/"} >Click here<i className="bi bi-chevron-double-right ms-2" /></Link>
+            <Link className="text-primary fw-medium" to={"/institutehome/viewstudent"} >Click here<i className="bi bi-chevron-double-right ms-2" /></Link>
             </div>
           </div>
         </div>

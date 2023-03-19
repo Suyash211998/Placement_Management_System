@@ -1,18 +1,28 @@
 import "../Css/studentresume.css";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Button, Modal } from "react-bootstrap";
 export default function Academicinfo() {
-  const [Specs, setSpecs] = useState("");
-  const [Institute, setInstitute] = useState("");
-  const [passyear, setpassyear] = useState("");
-  const [marksobt, setmarksobt] = useState("");
-  const [percentage, setpercentage] = useState("");
-  const [totmarks, settotmarks] = useState("");
-  const [cgpa, setcgpa] = useState("");
-  const [qualification, setQualification] = useState("");
-  const id = useParams();
+ 
+
+  const navigate = useNavigate();
+  const student = JSON.parse(localStorage.getItem("student"));
+  useEffect(() => {
+    if (student == null) {
+        navigate("/");
+    }
+}, []);
+
+const [Specs, setSpecs] = useState("");
+const [Institute, setInstitute] = useState("");
+const [passyear, setpassyear] = useState("");
+const [marksobt, setmarksobt] = useState("");
+const [percentage, setpercentage] = useState("");
+const [totmarks, settotmarks] = useState("");
+const [cgpa, setcgpa] = useState("");
+const [qualification, setQualification] = useState("");
+// const id = useParams();
 
   const [isModalOpened, setIsModalOpened] = useState(false);
   
@@ -28,8 +38,9 @@ export default function Academicinfo() {
     e.preventDefault();
     // if(validate()){
       var data = {
-        studentId:1,
-        academicDetailsList: [
+        studentId:student.studentId,
+        studentRollNo: student.studentRollNo,
+        academicDetailsList: 
           {
             specialization: Specs,
             institute: Institute,
@@ -39,10 +50,10 @@ export default function Academicinfo() {
             totalMarks: totmarks,
             cgpa: cgpa,
             qualification: qualification,
-        }],
+        },
         
       };
-     
+     console.log(data);
       const res = await axios.put("http://localhost:8080/student", data);
       if (res.status === 200) {
         openModal();
@@ -71,12 +82,10 @@ export default function Academicinfo() {
                 name="qualification"
                 onChange={(event) => setQualification(event.target.value)}
               >
-                <option selected>Select Qualification </option>
-                <option value="SSC">SSC</option>
-                <option value="HSC">HSC</option>
-                <option value="Diploma">Diploma</option>
-                <option value="B.E">B.E/B.Tech</option>
-                <option value="PostGradaute">Post Graduate</option>
+                <option selected >Select Qualification </option>
+                
+                <option value="B.E" defaultValue={"B>E"}>B.E/B.Tech</option>
+               
               </select>
               <label className="form-label" htmlFor="form3Example1cg" id="qualification" style={{ color: 'red' }} ></label>
             </td>
